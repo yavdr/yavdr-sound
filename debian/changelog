@@ -1,0 +1,5 @@
+yavdr-sound (1-0yavdr0-1) unstable; urgency=low
+
+  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- Marco Scholl <develop@marco-scholl.de>  Mon, 20 Feb 2012 18:37:35 +0100

@@ -1,0 +1,11 @@
+Source: yavdr-sound
+Section: base
+Priority: extra
+Maintainer: Marco Scholl <develop@marco-scholl.de>
+Build-Depends: cdbs, debhelper (>= 8.0.0)
+Standards-Version: 3.9.2
+
+Package: yavdr-sound
+Architecture: all
+Depends: ${misc:Depends}, alsa-base, alsa-utils
+Description: yavdr sound system

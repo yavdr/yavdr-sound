@@ -1,0 +1,23 @@
+#!/bin/sh -e
+
+case "$1" in
+  configure)
+    # prefill hdf
+    . /usr/share/yavdr/helpers/hdf_prefill.sh
+
+    hdf_prefill "system.hardware.alsa.analog.card" "0"
+    hdf_prefill "system.hardware.alsa.analog.device" "0"
+    hdf_prefill "system.hardware.alsa.digital.card" "0"
+    hdf_prefill "system.hardware.alsa.digital.device" "0"
+    hdf_prefill "system.hardware.alsa.hdmi.card" "0"
+    hdf_prefill "system.hardware.alsa.hdmi.device" "0"
+    hdf_prefill "system.sound.type" "all"
+
+    # temlate files
+    /usr/bin/process-template --owner root --group root --mode 0644 /etc/asound.conf
+
+  ;;
+
+esac
+
+exit 0
