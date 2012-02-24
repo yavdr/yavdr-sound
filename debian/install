@@ -1,1 +1,2 @@
-templates/*             usr/share/yavdr/templates/
+templates/*	usr/share/yavdr/templates/
+usr/*		usr/

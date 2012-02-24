@@ -7,5 +7,5 @@ Standards-Version: 3.9.2
 
 Package: yavdr-sound
 Architecture: all
-Depends: ${misc:Depends}, alsa-base, alsa-utils
+Depends: ${misc:Depends}, yavdr-base, alsa-base, alsa-utils
 Description: yavdr sound system
