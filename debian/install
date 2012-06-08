@@ -1,2 +1,2 @@
 templates/*	usr/share/yavdr/templates/
-usr/*		usr/
+scripts/*	usr/bin/
