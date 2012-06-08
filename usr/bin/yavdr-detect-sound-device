@@ -1,7 +1,5 @@
 #!/bin/bash -e
 
-# todo: check for --first-only and check only if the first detection
-
 export LC_MESSAGES=C
 export LANG=C
 

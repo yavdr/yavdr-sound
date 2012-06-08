@@ -2,8 +2,11 @@
 
 case "$1" in
   configure)
-    # detect device
-    /usr/bin/yavdr-detect-sound-device --first-only
+    # first install
+    if [ "$2" == "" ]; then
+      # detect device
+      /usr/bin/yavdr-detect-sound-device
+    fi
 
     # temlate files
     /usr/bin/process-template --owner root --group root --mode 0644 /etc/asound.conf
