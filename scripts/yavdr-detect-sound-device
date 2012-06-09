@@ -21,8 +21,8 @@ for INTERFACE in hdmi digital analog ; do
     DEVICE=${SINK//*device }; DEVICE=${DEVICE%%:*}
 
     # put them into db
-    dbset system.hardware.alsa.${INTERFACE}.card=$CARD
-    dbset system.hardware.alsa.${INTERFACE}.device=$DEVICE
+    dbset system.alsa.${INTERFACE}.card=$CARD
+    dbset system.alsa.${INTERFACE}.device=$DEVICE
 
   # 4 founded
   elif [ $FOUNDED -eq 4 ]; then
@@ -34,12 +34,12 @@ for INTERFACE in hdmi digital analog ; do
       DEVICE=$(grep -e "^ *Device:.*" /proc/asound/card$CARD/codec\#${ELD})
       DEVICE=${DEVICE#*device=}
       # put them into db
-      dbset system.hardware.alsa.${INTERFACE}.card=$CARD
-      dbset system.hardware.alsa.${INTERFACE}.device=$DEVICE
+      dbset system.alsa.${INTERFACE}.card=$CARD
+      dbset system.alsa.${INTERFACE}.device=$DEVICE
     else
       # we are totally lost and need to do some wild guessing
-      dbset system.hardware.alsa.${INTERFACE}.card=$CARD
-      dbset system.hardware.alsa.${INTERFACE}.device=7
+      dbset system.alsa.${INTERFACE}.card=$CARD
+      dbset system.alsa.${INTERFACE}.device=7
     fi
 
   fi
@@ -47,13 +47,13 @@ done
 
 # set sound type
 if [ "$(dbget system.sound.type)" = "" ]; then
-  if [ "$(dbget system.hardware.alsa.hdmi.device)"    != "" -a \
-    "$(dbget system.hardware.alsa.digital.device)" != "" -a \
-    "$(dbget system.hardware.alsa.analog.device)"  != "" ]; then
+  if [ "$(dbget system.alsa.hdmi.device)"    != "" -a \
+    "$(dbget system.alsa.digital.device)" != "" -a \
+    "$(dbget system.alsa.analog.device)"  != "" ]; then
     dbset system.sound.type="all"
-  elif  [ "$(dbget system.hardware.alsa.hdmi.device)"    != "" ]; then
+  elif  [ "$(dbget system.alsa.hdmi.device)"    != "" ]; then
     dbset system.sound.type="hdmi"
-  elif  [ "$(dbget system.hardware.alsa.digital.device)" != "" ]; then
+  elif  [ "$(dbget system.alsa.digital.device)" != "" ]; then
     dbset system.sound.type="digital"
   else
     dbset system.sound.type="analog"
@@ -61,4 +61,4 @@ if [ "$(dbget system.sound.type)" = "" ]; then
 fi
 
 # unmute
-/usr/bin/unmute-alsa
+alsaunmute

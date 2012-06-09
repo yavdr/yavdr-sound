@@ -1,16 +1,16 @@
 <?cs if:(system.sound.type != "analog" || system.sound.type != "") ?>
 <?cs if:(system.sound.type == "hdmi" || system.sound.type == "passthrough") ?> pcm.!default {
 	type hw
-	card <?cs var:system.hardware.alsa.hdmi.card ?>
-	device <?cs var:system.hardware.alsa.hdmi.device ?>
+	card <?cs var:system.alsa.hdmi.card ?>
+	device <?cs var:system.alsa.hdmi.device ?>
 }
 
 <?cs /if ?>
 <?cs if:system.sound.type == "spdif" ?>
 pcm.!default {
 	type hw
-	card <?cs var:system.hardware.alsa.digital.card ?>
-	device <?cs var:system.hardware.alsa.digital.device ?>
+	card <?cs var:system.alsa.digital.card ?>
+	device <?cs var:system.alsa.digital.device ?>
 }
 <?cs /if ?>
 
@@ -60,7 +60,7 @@ pcm.tv {
  ipc_key 1024
  slave
  {
-  pcm "hw:<?cs var:system.hardware.alsa.hdmi.card ?>,<?cs var:system.hardware.alsa.hdmi.device ?>" period_time 0
+  pcm "hw:<?cs var:system.alsa.hdmi.card ?>,<?cs var:system.alsa.hdmi.device ?>" period_time 0
   period_size 1024
   buffer_size 4096
   rate 48000
@@ -75,7 +75,7 @@ pcm.receiver {
  ipc_key 1025
  slave
  {
-  pcm "hw:<?cs var:system.hardware.alsa.digital.card ?>,<?cs var:system.hardware.alsa.digital.device ?>" period_time 0
+  pcm "hw:<?cs var:system.alsa.digital.card ?>,<?cs var:system.alsa.digital.device ?>" period_time 0
   period_size 1024
   buffer_size 4096
   rate 48000
