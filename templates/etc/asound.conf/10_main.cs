@@ -1,5 +1,5 @@
 <?cs if:(system.sound.type != "analog" || system.sound.type != "") ?>
-<?cs if:(system.sound.type == "hdmi" || system.sound.type == "passthrough") ?> pcm.!default {
+<?cs if:(system.sound.type == "hdmi" || system.sound.type == "passthrough") ?>pcm.!default {
 	type hw
 	card <?cs var:system.alsa.hdmi.card ?>
 	device <?cs var:system.alsa.hdmi.device ?>
