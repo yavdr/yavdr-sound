@@ -21,8 +21,8 @@ for INTERFACE in hdmi digital analog ; do
     DEVICE=${SINK//*device }; DEVICE=${DEVICE%%:*}
 
     # put them into db
-    /usr/bin/yavdr-hdf -a write -k system.alsa.${INTERFACE}.card -v $CARD
-    /usr/bin/yavdr-hdf -a write -k system.alsa.${INTERFACE}.device -v $DEVICE
+    /usr/bin/yavdr-db -a write -k system.alsa.${INTERFACE}.card -v $CARD
+    /usr/bin/yavdr-db -a write -k system.alsa.${INTERFACE}.device -v $DEVICE
 
   # 4 founded
   elif [ $FOUNDED -eq 4 ]; then
@@ -34,12 +34,12 @@ for INTERFACE in hdmi digital analog ; do
       DEVICE=$(grep -e "^ *Device:.*" /proc/asound/card$CARD/codec\#${ELD})
       DEVICE=${DEVICE#*device=}
       # put them into db
-      /usr/bin/yavdr-hdf -a write -k system.alsa.${INTERFACE}.card -v $CARD
-      /usr/bin/yavdr-hdf -a write -k system.alsa.${INTERFACE}.device -v $DEVICE
+      /usr/bin/yavdr-db -a write -k system.alsa.${INTERFACE}.card -v $CARD
+      /usr/bin/yavdr-db -a write -k system.alsa.${INTERFACE}.device -v $DEVICE
     else
       # we are totally lost and need to do some wild guessing
-      /usr/bin/yavdr-hdf -a write -k system.alsa.${INTERFACE}.card -v $CARD
-      /usr/bin/yavdr-hdf -a write -k system.alsa.${INTERFACE}.device -v 7
+      /usr/bin/yavdr-db -a write -k system.alsa.${INTERFACE}.card -v $CARD
+      /usr/bin/yavdr-db -a write -k system.alsa.${INTERFACE}.device -v 7
     fi
 
   fi
@@ -50,13 +50,13 @@ if [ "$(dbget system.sound.type)" = "" ]; then
   if [ "$(dbget system.alsa.hdmi.device)"    != "" -a \
     "$(dbget system.alsa.digital.device)" != "" -a \
     "$(dbget system.alsa.analog.device)"  != "" ]; then
-    dbset system.sound.type="all"
+    /usr/bin/yavdr-db -a write -k system.sound.type -v all
   elif  [ "$(dbget system.alsa.hdmi.device)"    != "" ]; then
-    dbset system.sound.type="hdmi"
+    /usr/bin/yavdr-db -a write -k system.sound.type -v hdmi
   elif  [ "$(dbget system.alsa.digital.device)" != "" ]; then
-    dbset system.sound.type="digital"
+    /usr/bin/yavdr-db -a write -k system.sound.type -v digital
   else
-    dbset system.sound.type="analog"
+    /usr/bin/yavdr-db -a write -k system.sound.type -v analog
   fi
 fi
 
