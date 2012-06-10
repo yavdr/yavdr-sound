@@ -21,8 +21,8 @@ for INTERFACE in hdmi digital analog ; do
     DEVICE=${SINK//*device }; DEVICE=${DEVICE%%:*}
 
     # put them into db
-    dbset system.alsa.${INTERFACE}.card=$CARD
-    dbset system.alsa.${INTERFACE}.device=$DEVICE
+    /usr/bin/yavdr-hdf -a write -k system.alsa.${INTERFACE}.card -v $CARD
+    /usr/bin/yavdr-hdf -a write -k system.alsa.${INTERFACE}.device -v $DEVICE
 
   # 4 founded
   elif [ $FOUNDED -eq 4 ]; then
@@ -34,12 +34,12 @@ for INTERFACE in hdmi digital analog ; do
       DEVICE=$(grep -e "^ *Device:.*" /proc/asound/card$CARD/codec\#${ELD})
       DEVICE=${DEVICE#*device=}
       # put them into db
-      dbset system.alsa.${INTERFACE}.card=$CARD
-      dbset system.alsa.${INTERFACE}.device=$DEVICE
+      /usr/bin/yavdr-hdf -a write -k system.alsa.${INTERFACE}.card -v $CARD
+      /usr/bin/yavdr-hdf -a write -k system.alsa.${INTERFACE}.device -v $DEVICE
     else
       # we are totally lost and need to do some wild guessing
-      dbset system.alsa.${INTERFACE}.card=$CARD
-      dbset system.alsa.${INTERFACE}.device=7
+      /usr/bin/yavdr-hdf -a write -k system.alsa.${INTERFACE}.card -v $CARD
+      /usr/bin/yavdr-hdf -a write -k system.alsa.${INTERFACE}.device -v 7
     fi
 
   fi
