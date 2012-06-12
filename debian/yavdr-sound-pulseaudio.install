@@ -1,0 +1,2 @@
+pulseaudio/templates/*	usr/share/yavdr/templates/
+pulseaudio/modules/*	usr/share/yavdr/modules/sound/

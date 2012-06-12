@@ -1,0 +1,5 @@
+#!/bin/bash
+
+for MODULE in `ls /usr/share/yavdr/modules/sound/`; do
+  echo $MODULE
+done

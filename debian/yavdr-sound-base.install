@@ -1,0 +1,3 @@
+base/templates/*	usr/share/yavdr/templates/
+base/scripts/*		usr/bin/
+base/backup/*		etc/yavdr/backup/

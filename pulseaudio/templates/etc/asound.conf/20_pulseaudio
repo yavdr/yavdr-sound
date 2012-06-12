@@ -1,0 +1,6 @@
+<?cs if:sound.module == "pulse" ?>pcm.!default {
+  type pulse
+}
+ctl.!default {
+  type pulse
+}<?cs /if ?>

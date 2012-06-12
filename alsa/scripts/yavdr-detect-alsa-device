@@ -1,0 +1,64 @@
+#!/bin/bash -e
+
+export LC_MESSAGES=C
+export LANG=C
+
+# iterate all interfaces
+for INTERFACE in hdmi digital analog ; do
+
+  # init
+  CARD=""
+  DEVICE=""
+  FOUNDED=$(aplay -l | grep -i $INTERFACE | wc -l)
+
+  # check for hardware
+  # 1 founded
+  if [ $FOUNDED -eq 1 ]; then
+    SINK="$(aplay -l | grep -i $INTERFACE)"
+
+    # get the index id's
+    CARD=${SINK//card } ; CARD=${CARD%%:*}
+    DEVICE=${SINK//*device }; DEVICE=${DEVICE%%:*}
+
+    # put them into db
+    yavdr-db-tool -a write -k sound.alsa.${INTERFACE}.card -v $CARD
+    yavdr-db-tool -a write -k sound.alsa.${INTERFACE}.device -v $DEVICE
+
+  # 4 founded
+  elif [ $FOUNDED -eq 4 ]; then
+
+    CARD=$(LANG=C aplay -l | grep -i $INTERFACE) ; CARD=${CARD//:*} ; CARD=${CARD#card }
+    ELD="`grep -e "monitor_present.*1$" /proc/asound/card${CARD}/eld* | cut -d":" -f1`"
+    if [ "x$ELD" != "x" ]; then
+      ELD=${ELD#*\#} ; ELD=${ELD//.*}
+      DEVICE=$(grep -e "^ *Device:.*" /proc/asound/card$CARD/codec\#${ELD})
+      DEVICE=${DEVICE#*device=}
+      # put them into db
+      yavdr-db-tool -a write -k sound.alsa.${INTERFACE}.card -v $CARD
+      yavdr-db-tool -a write -k sound.alsa.${INTERFACE}.device -v $DEVICE
+    else
+      # we are totally lost and need to do some wild guessing
+      yavdr-db-tool -a write -k sound.alsa.${INTERFACE}.card -v $CARD
+      yavdr-db-tool -a write -k sound.alsa.${INTERFACE}.device -v 7
+    fi
+
+  fi
+done
+
+# set sound output
+if [ "$(yavdr-db-tool -k sound.alsa.output)" = "" ]; then
+  if [ "$(yavdr-db-tool -k sound.alsa.hdmi.device)"    != "" -a \
+    "$(yavdr-db-tool -k sound.alsa.spdif.device)" != "" -a \
+    "$(yavdr-db-tool -k sound.alsa.analog.device)"  != "" ]; then
+    yavdr-db-tool -a write -k sound.alsa.output -v all
+  elif [ "$(dbget sound.alsa.hdmi.device)" != "" ]; then
+    yavdr-db-tool -a write -k sound.alsa.output -v hdmi
+  elif [ "$(dbget sound.alsa.spdif.device)" != "" ]; then
+    yavdr-db-tool -a write -k sound.alsa.output -v spdif
+  else
+    yavdr-db-tool -a write -k sound.alsa.output -v analog
+  fi
+fi
+
+# unmute
+alsaunmute
