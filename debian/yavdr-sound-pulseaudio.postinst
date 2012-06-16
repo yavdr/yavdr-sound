@@ -1,0 +1,11 @@
+#!/bin/bash -e
+
+case "$1" in
+  configure)
+    # add yavdr to group
+    adduser yavdr pulse-access
+  ;;
+
+esac
+
+exit 0
