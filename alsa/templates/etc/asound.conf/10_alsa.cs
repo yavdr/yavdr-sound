@@ -1,4 +1,4 @@
-<?cs if:(sound.module == "alsa" && sound.alsa.output != "") ?><?cs if:(sound.alsa.output == "hdmi" || sound.alsa.output == "passthrough") ?>pcm.!default {
+<?cs if:(module.sound == "alsa" && sound.alsa.output != "") ?><?cs if:(sound.alsa.output == "hdmi" || sound.alsa.output == "passthrough") ?>pcm.!default {
   type hw
   card <?cs var:sound.alsa.hdmi.card ?>
   device <?cs var:sound.alsa.hdmi.device ?>

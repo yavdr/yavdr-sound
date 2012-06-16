@@ -9,7 +9,7 @@ case "$1" in
     fi
 
     # prefill
-    yavdr-db-tool -a preset -k sound.module -v alsa
+    yavdr-db-tool -a preset -k module.sound -v alsa
 
     # temlate files
     yavdr-template-sound

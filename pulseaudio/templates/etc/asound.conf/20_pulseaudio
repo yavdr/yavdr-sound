@@ -1,4 +1,4 @@
-<?cs if:sound.module == "pulseaudio" ?>pcm.!default {
+<?cs if:module.sound == "pulseaudio" ?>pcm.!default {
   type pulse
 }
 ctl.!default {
