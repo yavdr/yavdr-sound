@@ -5,19 +5,19 @@ Maintainer: Marco Scholl <develop@marco-scholl.de>
 Build-Depends: cdbs, debhelper (>= 8.0.0)
 Standards-Version: 3.9.2
 
-Package: yavdr-sound-base
-Replaces: yavdr-sound
-Conflicts: yavdr-sound
+Package: yavdr-sound
+Replaces: yavdr-sound-base
+Conflicts: yavdr-sound-base
 Architecture: all
 Depends: ${misc:Depends}, yavdr-base, yavdr-sound-alsa
 Description: yavdr sound system
 
 Package: yavdr-sound-alsa
 Architecture: all
-Depends: ${misc:Depends}, yavdr-base, alsa-base, alsa-utils
+Depends: ${misc:Depends}, yavdr-base, yavdr-sound, alsa-base, alsa-utils
 Description: yavdr sound system for alsa
 
 Package: yavdr-sound-pulseaudio
 Architecture: all
-Depends: ${misc:Depends}, yavdr-base, pulseaudio, pulseaudio-utils, pulseaudio-module-zeroconf, pulseaudio-module-x11, pulseaudio-module-bluetooth
+Depends: ${misc:Depends}, yavdr-base, yavdr-sound, pulseaudio, pulseaudio-utils, pulseaudio-module-zeroconf, pulseaudio-module-x11, pulseaudio-module-bluetooth
 Description: yavdr sound system for pulseaudio
