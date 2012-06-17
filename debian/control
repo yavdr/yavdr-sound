@@ -6,8 +6,6 @@ Build-Depends: cdbs, debhelper (>= 8.0.0)
 Standards-Version: 3.9.2
 
 Package: yavdr-sound
-Replaces: yavdr-sound-base
-Conflicts: yavdr-sound-base
 Architecture: all
 Depends: ${misc:Depends}, yavdr-base, yavdr-sound-alsa
 Description: yavdr sound system
