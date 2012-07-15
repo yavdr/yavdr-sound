@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/sh -e
 
 logger -t yavdr-template-sound "templating"
 /usr/bin/process-template --owner root --group root --mode 0644 /etc/asound.conf
